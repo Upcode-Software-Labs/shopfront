@@ -14,11 +14,11 @@ export const validateEnvironmentVariables = () => {
   const requiredEnvironmentVariables = ['SHOPIFY_STORE_DOMAIN', 'SHOPIFY_STOREFRONT_ACCESS_TOKEN'];
   const missingEnvironmentVariables = [] as string[];
 
-  requiredEnvironmentVariables.forEach((envVar) => {
-    if (!process.env[envVar]) {
-      missingEnvironmentVariables.push(envVar);
-    }
-  });
+  // requiredEnvironmentVariables.forEach((envVar) => {
+  //   if (!process.env[envVar]) {
+  //     missingEnvironmentVariables.push(envVar);
+  //   }
+  // });
 
   if (missingEnvironmentVariables.length) {
     throw new Error(
@@ -28,12 +28,12 @@ export const validateEnvironmentVariables = () => {
     );
   }
 
-  if (
-    process.env.SHOPIFY_STORE_DOMAIN?.includes('[') ||
-    process.env.SHOPIFY_STORE_DOMAIN?.includes(']')
-  ) {
-    throw new Error(
-      'Your `SHOPIFY_STORE_DOMAIN` environment variable includes brackets (ie. `[` and / or `]`). Your site will not work with them there. Please remove them.'
-    );
-  }
+  // if (
+  //   process.env.SHOPIFY_STORE_DOMAIN?.includes('[') ||
+  //   process.env.SHOPIFY_STORE_DOMAIN?.includes(']')
+  // ) {
+  //   throw new Error(
+  //     'Your `SHOPIFY_STORE_DOMAIN` environment variable includes brackets (ie. `[` and / or `]`). Your site will not work with them there. Please remove them.'
+  //   );
+  // }
 };
