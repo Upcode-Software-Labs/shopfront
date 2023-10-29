@@ -1,73 +1,85 @@
+import { ProductCollection } from '@chec/commerce.js/features/products';
 import { Cart } from '@chec/commerce.js/types/cart';
 import { Product } from '@chec/commerce.js/types/product';
-import commerce from 'lib/commerce';
-import { SHOPIFY_GRAPHQL_API_ENDPOINT } from 'lib/constants';
-import { ensureStartsWith } from 'lib/utils';
+import { COMMERCE_JS_API_ENDPOINT } from 'lib/constants';
 import { NextRequest, NextResponse } from 'next/server';
 
-const domain = process.env.SHOPIFY_STORE_DOMAIN
-  ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
-  : '';
-const endpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
-const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
+const endpoint = COMMERCE_JS_API_ENDPOINT;
+const key = process.env.NEXT_PUBLIC_CHEC_PUBLIC_API_KEY!;
 
-type ExtractVariables<T> = T extends { variables: object } ? T['variables'] : never;
+export async function commerceJSFetch<T>({
+  method = 'GET',
+  cache = 'force-cache',
+  headers,
+  path,
+  body,
+  parameters
+}: {
+  method?: string;
+  cache?: RequestCache;
+  headers?: HeadersInit;
+  path: string;
+  tags?: string[];
+  body?: object;
+  parameters?: object;
+}): Promise<T | never> {
+  try {
+    let queries = getPathParms(parameters);
+    console.log({ url: `${endpoint}${path}${queries ? '?' + queries : ''}` });
 
-// export async function shopifyFetch<T>({
-//   cache = 'force-cache',
-//   headers,
-//   query,
-//   tags,
-//   variables
-// }: {
-//   cache?: RequestCache;
-//   headers?: HeadersInit;
-//   query: string;
-//   tags?: string[];
-//   variables?: ExtractVariables<T>;
-// }): Promise<{ status: number; body: T } | never> {
-//   try {
-//     const result = await fetch(endpoint, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'X-Shopify-Storefront-Access-Token': key,
-//         ...headers
-//       },
-//       body: JSON.stringify({
-//         ...(query && { query }),
-//         ...(variables && { variables })
-//       }),
-//       cache,
-//       ...(tags && { next: { tags } })
-//     });
+    const result = await fetch(`${endpoint}${path}${queries ? '?' + queries : ''}`, {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Authorization': key,
+        ...headers
+      },
+      body:
+        body != undefined
+          ? JSON.stringify({
+              ...body
+            })
+          : undefined,
+      cache
+    });
 
-//     const body = await result.json();
+    const response = await result.json();
 
-//     if (body.errors) {
-//       throw body.errors[0];
-//     }
+    if (response.errors) {
+      throw response.errors[0];
+    }
 
-//     return {
-//       status: result.status,
-//       body
-//     };
-//   } catch (e) {
-//     if (isShopifyError(e)) {
-//       throw {
-//         cause: e.cause?.toString() || 'unknown',
-//         status: e.status || 500,
-//         message: e.message,
-//         query
-//       };
-//     }
+    return response;
+  } catch (e) {
+    throw {
+      error: e,
+      path
+    };
+  }
+}
 
-//     throw {
-//       error: e,
-//       query
-//     };
-//   }
-// }
+export async function getProductsFromCommerceJs<T>({
+  parameters
+}: {
+  parameters?: object;
+}): Promise<ProductCollection | never> {
+  return commerceJSFetch<ProductCollection>({ path: 'products', parameters });
+}
+
+function getPathParms(parameters?: object) {
+  if (!parameters) {
+    return null;
+  }
+
+  const params = new URLSearchParams();
+
+  for (const key in parameters) {
+    if (parameters.hasOwnProperty(key)) {
+      params.append(key, (parameters as any)[key]);
+    }
+  }
+  return params.toString();
+}
 
 const removeEdgesAndNodes = (array: any) => {
   return [];
@@ -105,10 +117,10 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
 
 //TODO: change return type
 export async function getCollection(handle: string): Promise<any | undefined> {
-  const merchant = await commerce.merchants.about();
-  const categories = await commerce.categories.list;
-  const products = await commerce.products.list();
-  console.log({ categories, products });
+  // const merchant = await commerce.merchants.about();
+  // const categories = await commerce.categories.list();
+  // const products = await commerce.products.list();
+  // console.log({ categories, products });
   return {};
   // return reshapeCollection(res.body.data.collection);
 }
@@ -121,8 +133,22 @@ export async function getCollectionProducts({
   collection: string;
   reverse?: boolean;
   sortKey?: string;
-}): Promise<any[]> {
-  return [];
+}): Promise<ProductCollection> {
+  // let list = commerce.products.list({
+  //   limit: 20, category_id: collection, sortBy: sortKey, sortDirection: reverse? 'desc': 'asc',
+  //   category_slug: ['shoes']
+
+  // }).then(response => {
+  //   console.log("test")
+  // }
+  // )
+
+  // return list;
+  return getProductsFromCommerceJs({
+    parameters: {
+      limit: 5
+    }
+  });
 }
 
 export async function getCollections(): Promise<any[]> {
