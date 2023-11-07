@@ -2,7 +2,7 @@ import { ProductCollection } from '@chec/commerce.js/features/products';
 import { Cart } from '@chec/commerce.js/types/cart';
 import { Product } from '@chec/commerce.js/types/product';
 import { COMMERCE_JS_API_ENDPOINT } from 'lib/constants';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 const endpoint = COMMERCE_JS_API_ENDPOINT;
 const key = process.env.NEXT_PUBLIC_CHEC_PUBLIC_API_KEY!;
@@ -24,7 +24,7 @@ export async function commerceJSFetch<T>({
   parameters?: object;
 }): Promise<T | never> {
   try {
-    let queries = getPathParms(parameters);
+    const queries = getPathParms(parameters);
     console.log({ url: `${endpoint}${path}${queries ? '?' + queries : ''}` });
 
     const result = await fetch(`${endpoint}${path}${queries ? '?' + queries : ''}`, {
@@ -58,7 +58,7 @@ export async function commerceJSFetch<T>({
   }
 }
 
-export async function getProductsFromCommerceJs<T>({
+export async function getProductsFromCommerceJs({
   parameters
 }: {
   parameters?: object;
@@ -81,42 +81,35 @@ function getPathParms(parameters?: object) {
   return params.toString();
 }
 
-const removeEdgesAndNodes = (array: any) => {
-  return [];
-};
-
-const reshapeCart = (cart: any): any => {
-  return {};
-};
-
 export async function createCart(): Promise<Cart> {
   return new Promise(() => {});
 }
 
-export async function addToCart(
-  cartId: string,
-  lines: { merchandiseId: string; quantity: number }[]
-): Promise<Cart> {
+export async function addToCart(): Promise<Cart> {
+  // cartId: string,
+  // lines: { merchandiseId: string; quantity: number }[]
   return new Promise(() => {});
 }
 
-export async function removeFromCart(cartId: string, lineIds: string[]): Promise<Cart> {
+export async function removeFromCart(): Promise<Cart> {
+  // cartId: string, lineIds: string[]
   return new Promise(() => {});
 }
 
-export async function updateCart(
-  cartId: string,
-  lines: { id: string; merchandiseId: string; quantity: number }[]
-): Promise<Cart> {
+export async function updateCart(): Promise<Cart> {
+  // cartId: string,
+  // lines: { id: string; merchandiseId: string; quantity: number }[]
   return new Promise(() => {});
 }
 
-export async function getCart(cartId: string): Promise<Cart | undefined> {
+export async function getCart(): Promise<Cart | undefined> {
+  // cartId: string
   return new Promise(() => {});
 }
 
 //TODO: change return type
-export async function getCollection(handle: string): Promise<any | undefined> {
+export async function getCollection(): Promise<any | undefined> {
+  // handle: string
   // const merchant = await commerce.merchants.about();
   // const categories = await commerce.categories.list();
   // const products = await commerce.products.list();
@@ -125,14 +118,13 @@ export async function getCollection(handle: string): Promise<any | undefined> {
   // return reshapeCollection(res.body.data.collection);
 }
 
-export async function getCollectionProducts({
-  collection,
-  reverse,
-  sortKey
-}: {
-  collection: string;
-  reverse?: boolean;
-  sortKey?: string;
+export async function getCollectionProducts({} // collection,
+// reverse,
+// sortKey
+: {
+  // collection: string;
+  // reverse?: boolean;
+  // sortKey?: string;
 }): Promise<ProductCollection> {
   // let list = commerce.products.list({
   //   limit: 20, category_id: collection, sortBy: sortKey, sortDirection: reverse? 'desc': 'asc',
@@ -155,11 +147,13 @@ export async function getCollections(): Promise<any[]> {
   return [];
 }
 
-export async function getMenu(handle: string): Promise<any[]> {
+export async function getMenu(): Promise<any[]> {
+  // handle: string
   return new Promise((resolve) => resolve([]));
 }
 
-export async function getPage(handle: string): Promise<any> {
+export async function getPage(): Promise<any> {
+  // handle: string
   return {};
 }
 
@@ -167,28 +161,30 @@ export async function getPages(): Promise<any[]> {
   return [];
 }
 
-export async function getProduct(handle: string): Promise<Product | undefined> {
+export async function getProduct(): Promise<Product | undefined> {
+  // handle: string
   return new Promise(() => {});
 }
 
-export async function getProductRecommendations(productId: string): Promise<Product[]> {
+export async function getProductRecommendations(): Promise<Product[]> {
+  // productId: string
   return new Promise(() => []);
 }
 
-export async function getProducts({
-  query,
-  reverse,
-  sortKey
-}: {
-  query?: string;
-  reverse?: boolean;
-  sortKey?: string;
+export async function getProducts({} // query,
+// reverse,
+// sortKey
+: {
+  // query?: string;
+  // reverse?: boolean;
+  // sortKey?: string;
 }): Promise<any[]> {
   return [];
 }
 
 // // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.
-export async function revalidate(req: NextRequest): Promise<NextResponse> {
+export async function revalidate(): Promise<NextResponse> {
+  // req: NextRequest
   //   // We always need to respond with a 200 status code to Shopify,
   //   // otherwise it will continue to retry the request.
   //   const collectionWebhooks = ['collections/create', 'collections/delete', 'collections/update'];
