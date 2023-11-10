@@ -24,7 +24,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
-    "@types/chec__commerce.js": "^2.8.8",
+    "@types/chec__commerce.js": "^2.8.9",
     "clsx": "^2.0.0",
     "geist": "^1.0.0",
     "husky": "^8.0.3",
