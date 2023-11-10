@@ -14,8 +14,8 @@ dependencies:
     specifier: ^2.0.0
     version: 2.0.0
   geist:
-    specifier: ^1.0.0
-    version: 1.0.0
+    specifier: ^1.1.0
+    version: 1.1.0(next@14.0.2)
   husky:
     specifier: ^8.0.3
     version: 8.0.3
@@ -239,10 +239,6 @@ packages:
     dependencies:
       glob: 7.1.7
     dev: true
-
-  /@next/font@13.5.6:
-    resolution: {integrity: sha512-urmUq05uCVJsBqAAJEV+xK5OTTodrSxdiG+351SOSjlWctywdBM6qX+K9pIe3K48RxjfnxlBbXjGyOJAji+pfw==}
-    dev: false
 
   /@next/swc-darwin-arm64@14.0.2:
     resolution: {integrity: sha512-i+jQY0fOb8L5gvGvojWyZMfQoQtDVB2kYe7fufOEiST6sicvzI2W5/EXo4lX5bLUjapHKe+nFxuVv7BA+Pd7LQ==}
@@ -1541,10 +1537,12 @@ packages:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
     dev: true
 
-  /geist@1.0.0:
-    resolution: {integrity: sha512-7hqXZqIdSiFbXjlMZ8Ag0fBAW8RzUjIXPkh160rT4m4ECMtsKdFX+06e0mK28oRCpU+lOB1C5Es8qxzvv7H2Hg==}
+  /geist@1.1.0(next@14.0.2):
+    resolution: {integrity: sha512-UwZH+ekwAt1T5XYlviFD+jUXFeRRawDDT8RtpJ//IHTPXlVIO6BCcZ8M0Pxg1K/FT3H8HLn3KJqMsPLHbo1HNg==}
+    peerDependencies:
+      next: ^13.2 || ^14
     dependencies:
-      '@next/font': 13.5.6
+      next: 14.0.2(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
   /get-intrinsic@1.2.2:
