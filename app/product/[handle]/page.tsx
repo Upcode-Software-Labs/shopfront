@@ -33,7 +33,7 @@ export async function generateMetadata({
         index: true,
         follow: true
       }
-    },
+    }
     // openGraph: url
     //   ? {
     //       images: [
@@ -62,9 +62,7 @@ export default async function ProductPage({ params }: { params: { handle: string
     image: product.image?.url,
     offers: {
       '@type': 'AggregateOffer',
-      availability: product.active
-        ? 'https://schema.org/InStock'
-        : 'https://schema.org/OutOfStock',
+      availability: product.active ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
       priceCurrency: product.price.formatted_with_code
     }
   };

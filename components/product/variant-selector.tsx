@@ -10,13 +10,7 @@ type Combination = {
   [key: string]: string | boolean; // ie. { color: 'Red', size: 'Large', ... }
 };
 
-export function VariantSelector({
-  options,
-  variants
-}: {
-  options: any[];
-  variants: any[];
-}) {
+export function VariantSelector({ options, variants }: { options: any[]; variants: any[] }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -32,7 +26,10 @@ export function VariantSelector({
     availableForSale: variant.availableForSale,
     // Adds key / value pairs for each variant (ie. "color": "Black" and "size": 'M").
     ...variant.selectedOptions.reduce(
-      (accumulator: any, option: any) => ({ ...accumulator, [option.name.toLowerCase()]: option.value }),
+      (accumulator: any, option: any) => ({
+        ...accumulator,
+        [option.name.toLowerCase()]: option.value
+      }),
       {}
     )
   }));

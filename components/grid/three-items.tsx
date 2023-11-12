@@ -49,10 +49,9 @@ export async function ThreeItemGrid() {
 
   return (
     <section className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2">
-      {products.map((product: Product)=> 
-   <ThreeItemGridItem size="full" item={product} priority={true} />
-      )}
-     
+      {products.map((product: Product) => (
+        <ThreeItemGridItem size="full" item={product} priority={true} />
+      ))}
     </section>
   );
 }

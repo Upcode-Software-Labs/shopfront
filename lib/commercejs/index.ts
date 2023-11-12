@@ -86,22 +86,22 @@ export async function createCart(): Promise<Cart> {
 }
 
 export async function addToCart(
-   cartId: string,
+  cartId: string,
   lines: { merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
   console.warn(`Implementation Pending for addToCart(${cartId}, ${lines}).`);
   return new Promise(() => {});
 }
 
-export async function removeFromCart(
-  cartId: string, lineIds: string[]
-): Promise<Cart> {
+export async function removeFromCart(cartId: string, lineIds: string[]): Promise<Cart> {
   console.warn(`Implementation Pending for removeFromCart(${cartId}, ${lineIds}).`);
   return new Promise(() => {});
 }
 
-export async function updateCart(  cartId: string,
- lines: { id: string; merchandiseId: string; quantity: number }[]): Promise<Cart> {
+export async function updateCart(
+  cartId: string,
+  lines: { id: string; merchandiseId: string; quantity: number }[]
+): Promise<Cart> {
   console.warn(`Implementation Pending for updateCart(${cartId}, ${lines}).`);
   return new Promise(() => {});
 }
