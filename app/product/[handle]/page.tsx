@@ -7,7 +7,6 @@ import Footer from 'components/layout/footer';
 import { Gallery } from 'components/product/gallery';
 import { ProductDescription } from 'components/product/product-description';
 import { getProduct, getProductRecommendations } from 'lib/commercejs';
-import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import Link from 'next/link';
 
 export const runtime = 'edge';
@@ -21,7 +20,7 @@ export async function generateMetadata({
 
   if (!product) return notFound();
 
-  const { url, image_dimensions, description: alt } = product.image || {};
+  // const { url, image_dimensions, description: alt } = product.image || {};
 
   return {
     title: product.seo.title || product.name,
