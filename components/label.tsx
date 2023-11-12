@@ -3,12 +3,10 @@ import Price from './price';
 
 const Label = ({
   title,
-  amount,
   currencyCode,
   position = 'bottom'
 }: {
   title: string;
-  amount: string;
   currencyCode: string;
   position?: 'bottom' | 'center';
 }) => {
