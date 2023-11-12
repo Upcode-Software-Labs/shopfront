@@ -36,6 +36,17 @@ pnpm dev
 
 Your app should now be running on [localhost:3000](http://localhost:3000/).
 
-<details>
-  <summary>Read CONTRIBUTING.md for more details if you work at Upcode (www.upcode.in) and want to run locally and / or contribute</summary>
-</details>
+## How to Deploy with Vercel
+- Make sure your build is passing `pnpm run build`
+- [Install Vercel Client](https://vercel.com/docs/cli) or simply run `pnpm i -g vercel`
+- Check Vercel version `vercel --version` and ensure that the installation is proper.
+- [Create an account](https://vercel.com/signup) in Vercel if you don't have already. 
+- Run `vercel` from terminal and fill the details accordingly 
+- Deploy to production `vercel --prod`
+
+### Deploy with Vercel
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Upcode-Software-Labs/shopfront)
+
+## How to Contribute
+Read [CONTRIBUTING.md](./CONTRIBUTING.md) for more details if you work at [Upcode](https://www.upcode.in) and want to run locally and / or contribute
+
