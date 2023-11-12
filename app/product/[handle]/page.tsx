@@ -21,32 +21,31 @@ export async function generateMetadata({
 
   if (!product) return notFound();
 
-  const { url, width, height, altText: alt } = product.featuredImage || {};
-  const indexable = !product.tags.includes(HIDDEN_PRODUCT_TAG);
+  const { url, image_dimensions, description: alt } = product.image || {};
 
   return {
-    title: product.seo.title || product.title,
+    title: product.seo.title || product.name,
     description: product.seo.description || product.description,
     robots: {
-      index: indexable,
-      follow: indexable,
+      index: true,
+      follow: true,
       googleBot: {
-        index: indexable,
-        follow: indexable
+        index: true,
+        follow: true
       }
     },
-    openGraph: url
-      ? {
-          images: [
-            {
-              url,
-              width,
-              height,
-              alt
-            }
-          ]
-        }
-      : null
+    // openGraph: url
+    //   ? {
+    //       images: [
+    //         {
+    //           url,
+    //          width: image_dimensions?.width,
+    //          height: image_dimensions?.height,
+    //           alt
+    //         }
+    //       ]
+    //     }
+    //   : null
   };
 }
 
@@ -58,17 +57,15 @@ export default async function ProductPage({ params }: { params: { handle: string
   const productJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: product.title,
+    name: product.name,
     description: product.description,
-    image: product.featuredImage.url,
+    image: product.image?.url,
     offers: {
       '@type': 'AggregateOffer',
-      availability: product.availableForSale
+      availability: product.active
         ? 'https://schema.org/InStock'
         : 'https://schema.org/OutOfStock',
-      priceCurrency: product.priceRange.minVariantPrice.currencyCode,
-      highPrice: product.priceRange.maxVariantPrice.amount,
-      lowPrice: product.priceRange.minVariantPrice.amount
+      priceCurrency: product.price.formatted_with_code
     }
   };
 
@@ -84,7 +81,7 @@ export default async function ProductPage({ params }: { params: { handle: string
         <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12 lg:flex-row lg:gap-8">
           <div className="h-full w-full basis-full lg:basis-4/6">
             <Gallery
-              images={product.images.map((image: any) => ({
+              images={product.assets.map((image: any) => ({
                 src: image.url,
                 altText: image.altText
               }))}
@@ -117,18 +114,18 @@ async function RelatedProducts({ id }: { id: string }) {
       <ul className="flex w-full gap-4 overflow-x-auto pt-1">
         {relatedProducts.map((product) => (
           <li
-            key={product.handle}
+            key={product.id}
             className="aspect-square w-full flex-none min-[475px]:w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5"
           >
-            <Link className="relative h-full w-full" href={`/product/${product.handle}`}>
+            <Link className="relative h-full w-full" href={`/product/${product.id}`}>
               <GridTileImage
-                alt={product.title}
+                alt={product.name}
                 label={{
-                  title: product.title,
-                  amount: product.priceRange.maxVariantPrice.amount,
-                  currencyCode: product.priceRange.maxVariantPrice.currencyCode
+                  title: product.name,
+                  amount: product.price.formatted_with_code,
+                  currencyCode: product.price.formatted_with_code
                 }}
-                src={product.featuredImage?.url}
+                src={product.image?.url || ''}
                 fill
                 sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, (min-width: 475px) 50vw, 100vw"
               />

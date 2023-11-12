@@ -1,6 +1,6 @@
+import { Product } from '@chec/commerce.js/types/product';
 import { GridTileImage } from 'components/grid/tile';
 import { getCollectionProducts } from 'lib/commercejs';
-import type { Product } from 'lib/shopify/types';
 import Link from 'next/link';
 
 function ThreeItemGridItem({
@@ -16,20 +16,20 @@ function ThreeItemGridItem({
     <div
       className={size === 'full' ? 'md:col-span-4 md:row-span-2' : 'md:col-span-2 md:row-span-1'}
     >
-      <Link className="relative block aspect-square h-full w-full" href={`/product/${item.handle}`}>
+      <Link className="relative block aspect-square h-full w-full" href={`/product/${item.id}`}>
         <GridTileImage
-          src={item.featuredImage.url}
+          src={item.image?.url || ''}
           fill
           sizes={
             size === 'full' ? '(min-width: 768px) 66vw, 100vw' : '(min-width: 768px) 33vw, 100vw'
           }
           priority={priority}
-          alt={item.title}
+          alt={item.name}
           label={{
             position: size === 'full' ? 'center' : 'bottom',
-            title: item.title as string,
-            amount: item.priceRange.maxVariantPrice.amount,
-            currencyCode: item.priceRange.maxVariantPrice.currencyCode
+            title: item.name as string,
+            amount: item.price.formatted_with_code,
+            currencyCode: item.price.formatted_with_code
           }}
         />
       </Link>
@@ -43,15 +43,16 @@ export async function ThreeItemGrid() {
     collection: 'hidden-homepage-featured-items'
   });
 
-  if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;
+  if (!homepageItems) return null;
 
-  const [firstProduct, secondProduct, thirdProduct] = homepageItems;
+  const products = homepageItems.data;
 
   return (
     <section className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2">
-      <ThreeItemGridItem size="full" item={firstProduct} priority={true} />
-      <ThreeItemGridItem size="half" item={secondProduct} priority={true} />
-      <ThreeItemGridItem size="half" item={thirdProduct} />
+      {products.map((product: Product)=> 
+   <ThreeItemGridItem size="full" item={product} priority={true} />
+      )}
+     
     </section>
   );
 }

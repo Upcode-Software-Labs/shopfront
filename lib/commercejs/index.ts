@@ -2,7 +2,7 @@ import { ProductCollection } from '@chec/commerce.js/features/products';
 import { Cart } from '@chec/commerce.js/types/cart';
 import { Product } from '@chec/commerce.js/types/product';
 import { COMMERCE_JS_API_ENDPOINT } from 'lib/constants';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 const endpoint = COMMERCE_JS_API_ENDPOINT;
 const key = process.env.NEXT_PUBLIC_CHEC_PUBLIC_API_KEY!;
@@ -85,35 +85,38 @@ export async function createCart(): Promise<Cart> {
   return new Promise(() => {});
 }
 
-export async function addToCart(): Promise<Cart> {
-  // cartId: string,
-  // lines: { merchandiseId: string; quantity: number }[]
+export async function addToCart(
+   cartId: string,
+  lines: { merchandiseId: string; quantity: number }[]
+): Promise<Cart> {
+  console.warn(`Implementation Pending for addToCart(${cartId}, ${lines}).`);
   return new Promise(() => {});
 }
 
-export async function removeFromCart(): Promise<Cart> {
-  // cartId: string, lineIds: string[]
+export async function removeFromCart(
+  cartId: string, lineIds: string[]
+): Promise<Cart> {
+  console.warn(`Implementation Pending for removeFromCart(${cartId}, ${lineIds}).`);
   return new Promise(() => {});
 }
 
-export async function updateCart(): Promise<Cart> {
-  // cartId: string,
-  // lines: { id: string; merchandiseId: string; quantity: number }[]
+export async function updateCart(  cartId: string,
+ lines: { id: string; merchandiseId: string; quantity: number }[]): Promise<Cart> {
+  console.warn(`Implementation Pending for updateCart(${cartId}, ${lines}).`);
   return new Promise(() => {});
 }
 
-export async function getCart(): Promise<Cart | undefined> {
-  // cartId: string
+export async function getCart(cartId: string): Promise<Cart | undefined> {
+  console.warn(`Implementation Pending for getCart(${cartId}).`);
   return new Promise(() => {});
 }
 
 //TODO: change return type
-export async function getCollection(): Promise<any | undefined> {
-  // handle: string
+export async function getCollection(handle: string): Promise<any | undefined> {
+  console.warn(`Implementation Pending for getCollection(${handle}).`);
   // const merchant = await commerce.merchants.about();
   // const categories = await commerce.categories.list();
   // const products = await commerce.products.list();
-  // console.log({ categories, products });
   return {};
   // return reshapeCollection(res.body.data.collection);
 }
@@ -147,13 +150,14 @@ export async function getCollections(): Promise<any[]> {
   return [];
 }
 
-export async function getMenu(): Promise<any[]> {
-  // handle: string
+export async function getMenu(handle: string): Promise<any[]> {
+  console.warn(`Implementation Pending for getMenu(${handle}).`);
   return new Promise((resolve) => resolve([]));
 }
 
-export async function getPage(): Promise<any> {
+export async function getPage(handle: string): Promise<any> {
   // handle: string
+  console.warn(`Implementation Pending for getPage(${handle}).`);
   return {};
 }
 
@@ -161,13 +165,13 @@ export async function getPages(): Promise<any[]> {
   return [];
 }
 
-export async function getProduct(): Promise<Product | undefined> {
-  // handle: string
+export async function getProduct(handle: string): Promise<Product | undefined> {
+  console.warn(`Implementation Pending for getProduct(${handle}).`);
   return new Promise(() => {});
 }
 
-export async function getProductRecommendations(): Promise<Product[]> {
-  // productId: string
+export async function getProductRecommendations(productId: string): Promise<Product[]> {
+  console.warn(`Implementation Pending for getProductRecommendations(${productId}).`);
   return new Promise(() => []);
 }
 
@@ -183,7 +187,8 @@ export async function getProducts({} // query,
 }
 
 // // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.
-export async function revalidate(): Promise<NextResponse> {
+export async function revalidate(req: NextRequest): Promise<NextResponse> {
+  console.warn(`Implementation Pending for revalidate(${req}).`);
   // req: NextRequest
   //   // We always need to respond with a 200 status code to Shopify,
   //   // otherwise it will continue to retry the request.

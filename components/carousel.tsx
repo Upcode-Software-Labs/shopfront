@@ -8,7 +8,6 @@ export async function Carousel() {
     collection: 'hidden-homepage-carousel'
   });
 
-  console.log({ products });
   if (!products?.length) return null;
 
   const carouselProducts = [...products];

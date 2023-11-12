@@ -1,7 +1,6 @@
 'use client';
 
 import clsx from 'clsx';
-import { ProductOption, ProductVariant } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -15,8 +14,8 @@ export function VariantSelector({
   options,
   variants
 }: {
-  options: ProductOption[];
-  variants: ProductVariant[];
+  options: any[];
+  variants: any[];
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -33,7 +32,7 @@ export function VariantSelector({
     availableForSale: variant.availableForSale,
     // Adds key / value pairs for each variant (ie. "color": "Black" and "size": 'M").
     ...variant.selectedOptions.reduce(
-      (accumulator, option) => ({ ...accumulator, [option.name.toLowerCase()]: option.value }),
+      (accumulator: any, option: any) => ({ ...accumulator, [option.name.toLowerCase()]: option.value }),
       {}
     )
   }));
@@ -42,7 +41,7 @@ export function VariantSelector({
     <dl className="mb-8" key={option.id}>
       <dt className="mb-4 text-sm uppercase tracking-wide">{option.name}</dt>
       <dd className="flex flex-wrap gap-3">
-        {option.values.map((value) => {
+        {option.values.map((value: any) => {
           const optionNameLowerCase = option.name.toLowerCase();
 
           // Base option params on current params so we can preserve any other param state in the url.

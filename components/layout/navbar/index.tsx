@@ -2,7 +2,6 @@ import Cart from 'components/cart';
 import OpenCart from 'components/cart/open-cart';
 import LogoSquare from 'components/logo-square';
 import { getMenu } from 'lib/commercejs';
-import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import MobileMenu from './mobile-menu';
@@ -27,7 +26,7 @@ export default async function Navbar() {
           </Link>
           {menu.length ? (
             <ul className="hidden gap-6 text-sm md:flex md:items-center">
-              {menu.map((item: Menu) => (
+              {menu.map((item: any) => (
                 <li key={item.title}>
                   <Link
                     href={item.path}
