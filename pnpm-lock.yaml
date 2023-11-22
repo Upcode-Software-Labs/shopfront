@@ -8,8 +8,8 @@ dependencies:
     specifier: ^2.0.18
     version: 2.0.18(react@18.2.0)
   '@types/chec__commerce.js':
-    specifier: ^2.8.9
-    version: 2.8.9
+    specifier: ^2.8.11
+    version: 2.8.11
   clsx:
     specifier: ^2.0.0
     version: 2.0.0
@@ -372,8 +372,8 @@ packages:
       tailwindcss: 3.3.5
     dev: true
 
-  /@types/chec__commerce.js@2.8.9:
-    resolution: {integrity: sha512-OwCFG6uD3CD5GMPy1qhsi/azZ0Jl5WK9CnKjRCmpuRHjnadJDpbG71nUOjndXIfWzAKkyilocCqJEOZ068ENdQ==}
+  /@types/chec__commerce.js@2.8.11:
+    resolution: {integrity: sha512-5TF3ZhkK4H2bSnnQNOX7Lc1OXLyVuwFe3UEijUIbr/EsjFTx5Vmkh51whi/8UA5fqCO9AlPIacUNcCB/6rAz8Q==}
     dev: false
 
   /@types/json5@0.0.29:
