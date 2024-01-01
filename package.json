@@ -25,7 +25,7 @@
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.1.1",
     "@types/chec__commerce.js": "^2.8.11",
-    "clsx": "^2.0.0",
+    "clsx": "^2.1.0",
     "geist": "^1.2.0",
     "husky": "^8.0.3",
     "next": "14.0.4",
