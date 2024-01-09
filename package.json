@@ -22,7 +22,7 @@
     "*.{js,css,md}": "prettier --write"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.17",
+    "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
     "@types/chec__commerce.js": "^2.8.11",
     "clsx": "^2.1.0",
